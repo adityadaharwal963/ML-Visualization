@@ -8,9 +8,9 @@ import {
   useEdgesState,
   addEdge,
 } from '@xyflow/react';
-
 import '@xyflow/react/dist/style.css';
 import './App.css';
+import Message from './components/message';
 
 // Sample JSON data (replace this with your actual JSON)
 const sampleJSON = {
@@ -76,7 +76,6 @@ export default function App() {
   const convertJSONToFlow = (json) => {
     const newNodes = json.steps.map((step, index) => ({
       id: `node-${index + 1}`,
-      // position: { x: index * 200, y: 0 }, // Adjust positioning as needed
       position: { x: 0, y: index * 100 }, // Adjust positioning as needed
       data: {
         label: step.description,
@@ -119,28 +118,10 @@ export default function App() {
       <div className="flex flex-col items-end justify-center w-screen min-h-screen bg-red-300 text-gray-800">
 
         {/* Prompt section */}
-
-        <div className="flex flex-col flex-grow self-start w-[40%] max-w-5xl bg-gray-500 border-r-8 shadow-xl overflow-hidden">
-          <div className="flex flex-col flex-grow h-0 p-4 overflow-auto">
-            {/* <MessagesList messages={messages} currentUsername={senderUser} />
-            <div ref={messageEndRef} /> */}
-          </div>
-
-          <div className="bg-gray-300 p-4 font-bold outline-2">
-            <textarea
-              className="flex items-center w-full rounded h-29 p-3 text-1xl mt-2 outline-2 resize-none"
-              placeholder="Message Agent"
-            // value={msg}
-            // onChange={handleEnterMessage}
-            // onKeyDown={handleKeyDown}
-            />
-          </div>
-        </div>
-
+        <Message />
 
 
         {/* Flowchart section */}
-
         <div className="flex flex-col w-[60%] bg-gray-200 border-l-amber-300 p-4 self-end absolute h-screen">
 
           <ReactFlow
