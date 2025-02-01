@@ -1,0 +1,104 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;  
+    align-items: center;      
+    flex-direction: column;    
+}
+
+.button-container {
+    display: flex;              
+    justify-content: center;     
+    width: 100%;                 
+    position: absolute;          
+    top: 20px;                   
+    left: 50%; 
+    transform: translateX(-50%);
+    z-index: 10;                
+}
+
+.button-wrapper {
+    display: flex;
+    border-radius: 5px; 
+    overflow: hidden; 
+    position: relative; 
+}
+
+button {
+    padding: 10px 20px;          
+    border: 2px solid #ddd; 
+    font-size: 16px;             
+    color: #ffffff;          
+    cursor: pointer;             
+    background: transparent;     
+    transition: all 0.3s ease;   
+    margin: 0; 
+}
+
+button:first-child {
+    border-top-right-radius: 0; 
+    border-bottom-right-radius: 0;
+    border-right: none; 
+}
+
+button:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: none; 
+}
+
+.button-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1px; 
+    height: 60%; 
+    background-color: #ddd; 
+    z-index: 1; 
+}
+
+button:hover {
+    border-color: #4CAF50;
+    background-color: #4CAF50;                
+}
+
+#file {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    width: 300px;
+    margin-top: 80px; 
+}
+
+input[type="file"] {
+    display: none;
+}
+
+label {
+    display: inline-block;
+    padding: 15px 30px; 
+    font-size: 18px; 
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px; 
+}
+
+label:hover {
+    background-color: #45a049;
+}
+
+p {
+    margin-top: 15px;
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+}
