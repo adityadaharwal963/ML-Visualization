@@ -1,14 +1,23 @@
-import React, { useCallback } from 'react';
-import {
-  ReactFlow,
-  MiniMap,
-  Controls,
-  Background,
-  useNodesState,
-  useEdgesState,
-  addEdge,
-} from '@xyflow/react';
+import React, { useState } from 'react';
+import Menu from './template/menu.jsx';
+import FileUpload from './template/fileUpload.jsx';
+import GraphToCode from './template/GraphToCode.jsx';
 
+<<<<<<< HEAD
+function App() {
+  const [activeComponent, setActiveComponent] = useState('FileUpload');
+
+  const handleButtonClick = (component) => {
+    setActiveComponent(component);
+  };
+
+  return (
+    <div>
+      <Menu onButtonClick={handleButtonClick} />
+      {activeComponent === 'FileUpload' && <FileUpload />}
+      {activeComponent === 'GraphToCode' && <GraphToCode />}
+    </div>
+=======
 import '@xyflow/react/dist/style.css';
 
 import GraphToCodeTemplate from './Template/GraphToCode.template.jsx';
@@ -35,6 +44,9 @@ export default function App() {
       </div>
 
     </>
+>>>>>>> origin
   );
 
 }
+
+export default App;

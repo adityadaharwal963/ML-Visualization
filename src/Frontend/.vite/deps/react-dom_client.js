@@ -1,9 +1,16 @@
 import {
   require_react_dom
+<<<<<<< HEAD:src/Frontend/node_modules/.vite/deps/react-dom_client.js
+} from "./chunk-HCIN4FJ4.js";
+import {
+  __commonJS
+} from "./chunk-REFQX4J5.js";
+=======
 } from "./chunk-PWZSRT5W.js";
 import {
   __commonJS
 } from "./chunk-UTEJFLXC.js";
+>>>>>>> origin:src/Frontend/.vite/deps/react-dom_client.js
 
 // node_modules/react-dom/client.js
 var require_client = __commonJS({
