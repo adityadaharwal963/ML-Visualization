@@ -8,7 +8,7 @@ const OLLAMA_API_URL = "http://localhost:11434/api/generate";
 const context = `
 You are an AI language model trained to analyze and break down AI/ML code into structured, easy-to-understand JSON format. Given a machine learning script, your task is to:
 1. Identify key phases in the code (e.g., Data Loading, Preprocessing, Model Training, Evaluation, etc.).
-2. Extract the most critical code snippet (1-2 lines) from each phase.
+2. Extract the most critical code snippet from each phase.
 3. Provide a simple, non-technical explanation of what each phase does.
 4. Return the breakdown in JSON format as shown in the example below.
 Input Example:
@@ -30,7 +30,6 @@ prediction = model.predict([[6]])
 print("Prediction for input 6:", prediction)
 Expected JSON Output:
 json
-CopyEdit
 {
   "phases": [
     {
@@ -56,15 +55,15 @@ CopyEdit
   ]
 }
 Guidelines:
-* Ensure the JSON output follows the structure above and only give JSON .
+* no text outside json body.
+* Ensure the JSON output follows the structure above .
 * Each phase should have a meaningful name.
 * The explanation should be simple and easy for non-coders to understand.
 * Extract all code snippet from each phase.
+* if necessary divide phase in sub-phase and update json accordingly
 `
 
 const testPropmt = `
-   
-
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -86,7 +85,7 @@ df = pd.read_csv(
 ).drop(["Dividends", "Stock Splits"], axis=1)
 df.head()
 df.describe()
-df.isna().sum() tstart = 2016
+df.isna().sum()tstart = 2016
 tend = 2020
 
 def train_test_plot(df, tstart, tend):
@@ -111,8 +110,7 @@ model_lstm.add(LSTM(units=125, activation="tanh", input_shape=(n_steps, features
 model_lstm.add(Dense(units=1))
 # Compiling the model
 model_lstm.compile(optimizer="RMSprop", loss="mse")
-
-model_lstm.summary() 
+model_lstm.summary()
 dataset_total = df.loc[:,"High"]
 inputs = dataset_total[len(dataset_total) - len(test_set) - n_steps :].values
 inputs = inputs.reshape(-1, 1)
@@ -166,13 +164,15 @@ async function chatWithCODER(userMessage) {
 
     try {
 
-        const response = await ollama.chat({model : 'deepseek-coder:6.7b', messages: [{role:'user' , content : finalPrompt}]});
+        const response = await ollama.chat({model : 'deepseek-r1:7b', messages: [{role:'user' , content : finalPrompt}]});
         console.log(response.message.content);
         const match = response.message.content.match(regex);
         if (match) {
           const jsonString = match[1].trim(); // match[1] contains the text inside the JSON block
           console.log(jsonString);
+          return JSON.parse(jsonString);
         }
+        return response.message.content;
     //     const response = await axios.get(OLLAMA_API_URL,{
     //         headers: {
     //             'Content-Type': 'application/json'
@@ -196,9 +196,15 @@ async function chatWithCODER(userMessage) {
     }
 }
 
-route.get('/run', async (req, res) => {
-    await chatWithCODER(testPropmt)
-    res.send('200');
+
+route.post('/run', async (req, res) => {
+    const promt = await req.body.message  
+    console.log(req.body)
+    const respond = await chatWithCODER(promt)
+    console.log("++++++++++++++++\n" + respond)
+    res.status(200).json({
+      reply : respond.phases
+    });
 });
 
 // const response = await ollama.chat({
